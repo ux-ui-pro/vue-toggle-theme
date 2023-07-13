@@ -1,0 +1,56 @@
+{
+  "name": "vue-toggle-theme",
+  "version": "0.0.2",
+  "description": "A component that helps to implement dark mode in your Vue application",
+  "author": "ux-ui.pro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ux-ui-pro/vue-toggle-theme.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ux-ui-pro/vue-toggle-theme/issues"
+  },
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vue-toggle-theme.umd.cjs",
+  "module": "./dist/vue-toggle-theme.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-toggle-theme.js",
+      "require": "./dist/vue-toggle-theme.umd.cjs"
+    },
+    "./index.css": "./dist/index.css"
+  },
+  "exclude": [
+    "src/App.vue",
+    "src/main.js"
+  ],
+  "scripts": {
+    "build": "vite build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "vite": "^4.4.3",
+    "sass": "^1.63.6",
+    "vue": "^3.3.4"
+  },
+  "keywords": [
+    "vue",
+    "dark",
+    "light",
+    "theme",
+    "toggle",
+    "switch",
+    "mode",
+    "change",
+    "color",
+    "sfc",
+    "vue3",
+    "component",
+    "dark-mode"
+  ]
+}
