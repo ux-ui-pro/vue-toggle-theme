@@ -7,7 +7,7 @@
 [![GitHub package version](https://img.shields.io/github/package-json/v/ux-ui-pro/vue-toggle-theme.svg)](https://github.com/ux-ui-pro/vue-toggle-theme)
 [![NPM Downloads](https://img.shields.io/npm/dm/vue-toggle-theme.svg?style=flat)](https://www.npmjs.org/package/vue-toggle-theme)
 
-<p><sup>1.4kB gzipped</sup></p>
+<p><sup>800B gzipped</sup></p>
 <h3><a href="https://9ddmm6.csb.app/">Demo</a></h3>
 </div>
 <br>
@@ -22,10 +22,10 @@ $ yarn add vue-toggle-theme
 <p><sub>*.vue</sub></p>
 
 ```vue
-<template lang="html">
-	<div>
-		<ToggleTheme :defaultTheme="'light'" />
-	</div>
+<template>
+	<ToggleTheme :defaultTheme="'light'">
+		<svg>...</svg>
+	</ToggleTheme>
 </template>
 
 <script>
