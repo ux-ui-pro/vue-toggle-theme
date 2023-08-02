@@ -1,6 +1,6 @@
 {
   "name": "vue-toggle-theme",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "A component that helps to implement dark mode in your Vue application",
   "author": "ux-ui.pro",
   "license": "MIT",
