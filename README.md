@@ -7,7 +7,7 @@
 [![GitHub package version](https://img.shields.io/github/package-json/v/ux-ui-pro/vue-toggle-theme.svg)](https://github.com/ux-ui-pro/vue-toggle-theme)
 [![NPM Downloads](https://img.shields.io/npm/dm/vue-toggle-theme.svg?style=flat)](https://www.npmjs.org/package/vue-toggle-theme)
 
-<p><sup>800B gzipped</sup></p>
+<p><sup>700B gzipped</sup></p>
 <h3><a href="https://9ddmm6.csb.app/">Demo</a></h3>
 </div>
 <br>
@@ -38,14 +38,6 @@ export default {
 	}
 }
 </script>
-```
-<p><sub>*.css</sub></p>
-
-```css
-:root {
-    --meta-theme-color-dark: hsl(0, 0%, 0%);
-    --meta-theme-color-light: hsl(0, 0%, 100%);
-}
 ```
 <br>
 
