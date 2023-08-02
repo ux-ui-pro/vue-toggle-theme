@@ -43,12 +43,8 @@ export default {
 
 ```css
 :root {
-    --toggle-theme-duration: 375ms;
-    --toggle-theme-color-icon: Black;
-}
-
-[data-theme='dark'] {
-    --toggle-theme-color-icon: White;
+    --meta-theme-color-dark: hsl(0, 0%, 0%);
+    --meta-theme-color-light: hsl(0, 0%, 100%);
 }
 ```
 <br>
