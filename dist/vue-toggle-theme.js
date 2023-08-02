@@ -1,4 +1,4 @@
-import { openBlock as o, createElementBlock as c, normalizeClass as a, renderSlot as n } from "vue";
+import { openBlock as l, createElementBlock as c, normalizeClass as a, renderSlot as n } from "vue";
 const i = (e, t) => {
   const r = e.__vccOpts || e;
   for (const [m, s] of t)
@@ -24,7 +24,7 @@ const i = (e, t) => {
   },
   methods: {
     setTheme() {
-      this.currentTheme = localStorage.getItem("theme") || this.defaultTheme, this.docEl.setAttribute("data-theme", this.currentTheme), this.docEl.setAttribute("defaulttheme", this.currentTheme);
+      this.currentTheme = localStorage.getItem("theme") || this.defaultTheme, this.metaTheme = document.querySelector('meta[name="theme-color"]'), this.cssVar = getComputedStyle(this.docEl).getPropertyValue("--meta-theme-color"), this.docEl.setAttribute("data-theme", this.currentTheme), this.docEl.setAttribute("defaulttheme", this.currentTheme), this.metaTheme.setAttribute("content", this.cssVar);
     },
     pickTheme() {
       this.currentTheme = this.currentTheme === "dark" ? "light" : "dark", localStorage.setItem("theme", this.currentTheme), this.setTheme();
@@ -40,9 +40,9 @@ const i = (e, t) => {
   }
 };
 function d(e, t, r, m, s, h) {
-  return o(), c("button", {
+  return l(), c("button", {
     themecolorlist: "light, dark",
-    onClick: t[0] || (t[0] = (...l) => h.pickTheme && h.pickTheme(...l)),
+    onClick: t[0] || (t[0] = (...o) => h.pickTheme && h.pickTheme(...o)),
     class: a(["toggle-theme", h.themeClasses])
   }, [
     n(e.$slots, "default")
