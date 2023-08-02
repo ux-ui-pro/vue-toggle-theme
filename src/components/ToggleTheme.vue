@@ -20,16 +20,20 @@ export default {
 	methods: {
 		setTheme() {
 			this.currentTheme = localStorage.getItem('theme') || this.defaultTheme
-			this.metaTheme = document.querySelector('meta[name="theme-color"]')
-			this.cssVar = getComputedStyle(this.docEl).getPropertyValue('--meta-theme-color')
-
 			this.docEl.setAttribute('data-theme', this.currentTheme)
 			this.docEl.setAttribute('defaulttheme', this.currentTheme)
+
+			this.updateMetaTheme()
+		},
+		updateMetaTheme() {
+			this.metaTheme = document.querySelector('meta[name="theme-color"]')
+			this.cssVar = getComputedStyle(this.docEl).getPropertyValue('--meta-theme-color')
 			this.metaTheme.setAttribute('content', this.cssVar)
 		},
 		pickTheme() {
 			this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark'
 			localStorage.setItem('theme', this.currentTheme)
+
 			this.setTheme()
 		}
 	},
