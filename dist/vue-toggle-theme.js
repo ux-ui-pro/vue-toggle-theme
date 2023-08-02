@@ -1,10 +1,10 @@
-import { openBlock as s, createElementBlock as c, normalizeClass as a, renderSlot as n } from "vue";
-const u = (e, t) => {
+import { openBlock as o, createElementBlock as c, normalizeClass as a, renderSlot as n } from "vue";
+const i = (e, t) => {
   const r = e.__vccOpts || e;
-  for (const [m, o] of t)
-    r[m] = o;
+  for (const [m, s] of t)
+    r[m] = s;
   return r;
-}, i = {
+}, u = {
   name: "ToggleTheme",
   props: {
     defaultTheme: {
@@ -15,7 +15,6 @@ const u = (e, t) => {
   data() {
     return {
       theme: this.defaultTheme,
-      metaThemeColor: null,
       currentTheme: null,
       docEl: document.documentElement
     };
@@ -25,12 +24,7 @@ const u = (e, t) => {
   },
   methods: {
     setTheme() {
-      this.currentTheme = localStorage.getItem("theme") || this.defaultTheme, this.docEl.setAttribute("data-theme", this.currentTheme), this.docEl.setAttribute("defaulttheme", this.currentTheme), this.metaTheme();
-    },
-    metaTheme() {
-      this.currentTheme = localStorage.getItem("theme") || this.defaultTheme, this.metaThemeColor = document.querySelector('meta[name="theme-color"]');
-      const e = getComputedStyle(document.documentElement), t = e.getPropertyValue("--meta-theme-color-dark"), r = e.getPropertyValue("--meta-theme-color-light"), m = { dark: t, light: r };
-      this.metaThemeColor.setAttribute("content", m[this.currentTheme].trim());
+      this.currentTheme = localStorage.getItem("theme") || this.defaultTheme, this.docEl.setAttribute("data-theme", this.currentTheme), this.docEl.setAttribute("defaulttheme", this.currentTheme);
     },
     pickTheme() {
       this.currentTheme = this.currentTheme === "dark" ? "light" : "dark", localStorage.setItem("theme", this.currentTheme), this.setTheme();
@@ -45,8 +39,8 @@ const u = (e, t) => {
     }
   }
 };
-function d(e, t, r, m, o, h) {
-  return s(), c("button", {
+function d(e, t, r, m, s, h) {
+  return o(), c("button", {
     themecolorlist: "light, dark",
     onClick: t[0] || (t[0] = (...l) => h.pickTheme && h.pickTheme(...l)),
     class: a(["toggle-theme", h.themeClasses])
@@ -54,7 +48,7 @@ function d(e, t, r, m, o, h) {
     n(e.$slots, "default")
   ], 2);
 }
-const g = /* @__PURE__ */ u(i, [["render", d]]);
+const g = /* @__PURE__ */ i(u, [["render", d]]);
 export {
   g as default
 };

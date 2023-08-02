@@ -10,7 +10,6 @@ export default {
 	data() {
 		return {
 			theme: this.defaultTheme,
-			metaThemeColor: null,
 			currentTheme: null,
 			docEl: document.documentElement
 		}
@@ -23,24 +22,10 @@ export default {
 			this.currentTheme = localStorage.getItem('theme') || this.defaultTheme
 			this.docEl.setAttribute('data-theme', this.currentTheme)
 			this.docEl.setAttribute('defaulttheme', this.currentTheme)
-			this.metaTheme()
-		},
-		metaTheme() {
-			this.currentTheme = localStorage.getItem('theme') || this.defaultTheme
-			this.metaThemeColor = document.querySelector('meta[name="theme-color"]')
-
-			const css = getComputedStyle(document.documentElement)
-			const dark = css.getPropertyValue('--meta-theme-color-dark')
-			const light = css.getPropertyValue('--meta-theme-color-light')
-			const colors = { dark, light }
-
-			this.metaThemeColor.setAttribute('content', colors[this.currentTheme].trim())
 		},
 		pickTheme() {
 			this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark'
-
 			localStorage.setItem('theme', this.currentTheme)
-
 			this.setTheme()
 		}
 	},
