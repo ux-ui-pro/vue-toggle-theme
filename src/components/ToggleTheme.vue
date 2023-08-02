@@ -31,7 +31,7 @@ export default {
 
 			const css = getComputedStyle(document.documentElement)
 			const dark = css.getPropertyValue('--meta-theme-color-dark')
-			const light = css.getPropertyValue('--theme-theme-color-light')
+			const light = css.getPropertyValue('--meta-theme-color-light')
 			const colors = { dark, light }
 
 			this.metaThemeColor.setAttribute('content', colors[this.currentTheme].trim())

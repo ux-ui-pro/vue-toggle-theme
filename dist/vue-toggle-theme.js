@@ -29,7 +29,7 @@ const u = (e, t) => {
     },
     metaTheme() {
       this.currentTheme = localStorage.getItem("theme") || this.defaultTheme, this.metaThemeColor = document.querySelector('meta[name="theme-color"]');
-      const e = getComputedStyle(document.documentElement), t = e.getPropertyValue("--meta-theme-color-dark"), r = e.getPropertyValue("--theme-theme-color-light"), m = { dark: t, light: r };
+      const e = getComputedStyle(document.documentElement), t = e.getPropertyValue("--meta-theme-color-dark"), r = e.getPropertyValue("--meta-theme-color-light"), m = { dark: t, light: r };
       this.metaThemeColor.setAttribute("content", m[this.currentTheme].trim());
     },
     pickTheme() {
