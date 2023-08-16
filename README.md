@@ -28,7 +28,7 @@ $ yarn add vue-toggle-theme
 
 <script>
 import ToggleTheme from 'vue-toggle-theme'
-import 'vue-toggle-theme/dist/index.css'
+import 'vue-toggle-theme/dist/style.css'
 
 export default {
 	components: {
