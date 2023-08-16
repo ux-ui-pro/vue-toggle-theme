@@ -1,4 +1,6 @@
 <script>
+import { ref, onMounted, computed } from 'vue'
+
 export default {
 	name: 'ToggleTheme',
 	props: {
@@ -7,42 +9,50 @@ export default {
 			default: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 		}
 	},
-	data() {
+	setup(props) {
+		const currentTheme = ref(null)
+		const docEl = document.documentElement
+
+		let isThrottled = false
+
+		const setTheme = () => {
+			docEl.setAttribute('data-theme', currentTheme.value)
+			updateMetaTheme()
+		}
+
+		const updateMetaTheme = () => {
+			const metaTheme = document.querySelector('meta[name="theme-color"]')
+			const cssVar = getComputedStyle(docEl).getPropertyValue('--meta-theme-color')
+
+			metaTheme.setAttribute('content', cssVar)
+		}
+
+		const pickTheme = () => {
+			if (isThrottled) return
+
+			isThrottled = true
+
+			currentTheme.value = currentTheme.value === 'dark' ? 'light' : 'dark'
+			localStorage.setItem('theme', currentTheme.value)
+
+			setTheme()
+
+			setTimeout(() => { isThrottled = false }, 300)
+		}
+
+		const themeClasses = computed(() => ({
+			'toggle-theme--dark': currentTheme.value === 'dark',
+			'toggle-theme--light': currentTheme.value === 'light'
+		}))
+
+		onMounted(() => {
+			currentTheme.value = localStorage.getItem('theme') || props.defaultTheme
+			setTheme()
+		})
+
 		return {
-			theme: this.defaultTheme,
-			currentTheme: null,
-			docEl: document.documentElement
-		}
-	},
-	mounted() {
-		this.setTheme()
-	},
-	methods: {
-		setTheme() {
-			this.currentTheme = localStorage.getItem('theme') || this.defaultTheme
-			this.docEl.setAttribute('data-theme', this.currentTheme)
-			this.docEl.setAttribute('defaulttheme', this.currentTheme)
-
-			this.updateMetaTheme()
-		},
-		updateMetaTheme() {
-			this.metaTheme = document.querySelector('meta[name="theme-color"]')
-			this.cssVar = getComputedStyle(this.docEl).getPropertyValue('--meta-theme-color')
-			this.metaTheme.setAttribute('content', this.cssVar)
-		},
-		pickTheme() {
-			this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark'
-			localStorage.setItem('theme', this.currentTheme)
-
-			this.setTheme()
-		}
-	},
-	computed: {
-		themeClasses() {
-			return {
-				'toggle-theme--dark': this.currentTheme === 'dark',
-				'toggle-theme--light': this.currentTheme === 'light'
-			}
+			themeClasses,
+			pickTheme
 		}
 	}
 }
@@ -50,23 +60,24 @@ export default {
 
 <template>
 	<button
-		themecolorlist="light, dark"
-		@click="pickTheme"
 		class="toggle-theme"
-		:class="themeClasses">
+		:class="themeClasses"
+		@click="pickTheme"
+	>
 		<slot />
 	</button>
 </template>
 
-<style>
-button.toggle-theme {
+<style scoped>
+.toggle-theme {
 	font-family: inherit;
 	font-size: 100%;
 	line-height: 1.15;
-	margin: 0; padding: 0;
+	margin: 0;
+	padding: 0;
 	overflow: visible;
 	border: none;
-	background-color: transparent;
+	text-transform: none;
 	-webkit-appearance: button;
 }
 </style>
