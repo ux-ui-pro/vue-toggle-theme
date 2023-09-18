@@ -1,7 +1,7 @@
 {
   "name": "vue-toggle-theme",
-  "version": "0.2.1",
-  "description": "A component that helps to implement dark mode in your Vue application",
+  "version": "1.0.0",
+  "description": "A Vue 3 component that adds a dark mode. Allows you to switch color schemes using the user's color scheme or by setting a predefined one, and save the selected theme to localStorage.",
   "author": "ux-ui.pro",
   "license": "MIT",
   "repository": {
@@ -21,8 +21,7 @@
     ".": {
       "import": "./dist/vue-toggle-theme.js",
       "require": "./dist/vue-toggle-theme.umd.cjs"
-    },
-    "./index.css": "./dist/index.css"
+    }
   },
   "exclude": [
     "src/App.vue",
@@ -33,13 +32,13 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.2.3",
-    "vite": "^4.4.4",
+    "@vitejs/plugin-vue": "^4.3.4",
+    "vite": "^4.4.9",
     "vue": "^3.3.4"
   },
   "keywords": [
     "vue",
-    "dark",
+    "dark mode",
     "light",
     "theme",
     "toggle",
@@ -48,7 +47,9 @@
     "change",
     "color",
     "sfc",
-    "vue3",
+    "vue 3",
+    "localStorage",
+    "schemes",
     "component"
   ]
 }

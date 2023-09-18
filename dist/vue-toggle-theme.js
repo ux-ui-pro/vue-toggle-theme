@@ -1,11 +1,11 @@
-import { ref as d, computed as u, onMounted as h, openBlock as g, createElementBlock as i, normalizeClass as p, renderSlot as _ } from "vue";
-const f = (o, e) => {
-  const a = o.__vccOpts || o;
-  for (const [t, l] of e)
-    a[t] = l;
-  return a;
+import { ref as u, computed as d, onMounted as h, openBlock as i, createElementBlock as p, normalizeClass as f, renderSlot as k } from "vue";
+const g = (o, e) => {
+  const r = o.__vccOpts || o;
+  for (const [t, a] of e)
+    r[t] = a;
+  return r;
 }, T = {
-  name: "ToggleTheme",
+  name: "DarkMode",
   props: {
     defaultTheme: {
       type: String,
@@ -13,38 +13,38 @@ const f = (o, e) => {
     }
   },
   setup(o) {
-    const e = d(null), a = document.documentElement;
+    const e = u(null), r = document.documentElement;
     let t = !1;
-    const l = () => {
-      a.setAttribute("data-theme", e.value), n();
-    }, n = () => {
-      const c = document.querySelector('meta[name="theme-color"]'), m = getComputedStyle(a).getPropertyValue("--meta-theme-color");
+    const a = () => {
+      r.setAttribute("data-theme", e.value), s();
+    }, s = () => {
+      const c = document.querySelector('meta[name="theme-color"]'), m = getComputedStyle(r).getPropertyValue("--meta-theme-color");
       c.setAttribute("content", m);
-    }, r = () => {
-      t || (t = !0, e.value = e.value === "dark" ? "light" : "dark", localStorage.setItem("theme", e.value), l(), setTimeout(() => {
+    }, l = () => {
+      t || (t = !0, e.value = e.value === "dark" ? "light" : "dark", localStorage.setItem("theme", e.value), a(), setTimeout(() => {
         t = !1;
       }, 300));
-    }, s = u(() => ({
-      "toggle-theme--dark": e.value === "dark",
-      "toggle-theme--light": e.value === "light"
+    }, n = d(() => ({
+      "theme-dark": e.value === "dark",
+      "theme-light": e.value === "light"
     }));
     return h(() => {
-      e.value = localStorage.getItem("theme") || o.defaultTheme, l();
+      e.value = localStorage.getItem("theme") || o.defaultTheme, a();
     }), {
-      themeClasses: s,
-      pickTheme: r
+      themeClasses: n,
+      pickTheme: l
     };
   }
 };
-function k(o, e, a, t, l, n) {
-  return g(), i("button", {
-    class: p(["toggle-theme", t.themeClasses]),
-    onClick: e[0] || (e[0] = (...r) => t.pickTheme && t.pickTheme(...r))
+function v(o, e, r, t, a, s) {
+  return i(), p("button", {
+    class: f(t.themeClasses),
+    onClick: e[0] || (e[0] = (...l) => t.pickTheme && t.pickTheme(...l))
   }, [
-    _(o.$slots, "default", {}, void 0, !0)
+    k(o.$slots, "default")
   ], 2);
 }
-const y = /* @__PURE__ */ f(T, [["render", k], ["__scopeId", "data-v-5e0d21ad"]]);
+const S = /* @__PURE__ */ g(T, [["render", v]]);
 export {
-  y as default
+  S as default
 };
