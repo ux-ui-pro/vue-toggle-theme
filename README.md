@@ -18,10 +18,11 @@ $ yarn add vue-toggle-theme
 ```
 <br>
 
-## Use
+## Usage
+`defaultTheme` accepts the values `light` or `dark`. If no value is specified, the user's theme will be used.
 ```vue
 <template>
-	<ToggleTheme :defaultTheme="'light'"> // light or dark
+	<ToggleTheme :defaultTheme="'light'">
 		<svg>...</svg>
 	</ToggleTheme>
 </template>
@@ -36,6 +37,12 @@ export default {
 }
 </script>
 ```
+<br>
+
+Add a `<meta>` element with the theme-color attribute to the `<head>` section.
+```html
+<meta name="theme-color" content="">
+```
 ```css
 :root {
     --meta-theme-color: White;
@@ -44,12 +51,6 @@ export default {
 [data-theme='dark'] {
     --meta-theme-color: Black;
 }
-```
-<br>
-
-Add a `<meta>` element with the theme-color attribute to the `<head>` section.
-```html
-<meta name="theme-color" content="">
 ```
 <br>
 
