@@ -1,52 +1,47 @@
-import { ref as m, computed as i, onMounted as h, onUnmounted as p, openBlock as f, createElementBlock as k, normalizeClass as v, renderSlot as g } from "vue";
-const T = (o, e) => {
-  const t = o.__vccOpts || o;
-  for (const [a, n] of e)
-    t[a] = n;
-  return t;
-}, _ = {
-  name: "DarkMode",
-  props: {
-    defaultTheme: {
-      type: String,
-      default: window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
-    }
-  },
-  setup(o) {
-    const e = m(null), t = m(null), a = document.documentElement, n = () => {
-      a.setAttribute("data-theme", e.value), r();
+import { reactive as s, onMounted as a, watch as l, openBlock as h, createElementBlock as u, normalizeClass as d, renderSlot as i } from "vue";
+const T = (e, n) => {
+  const o = e.__vccOpts || e;
+  for (const [r, c] of n)
+    o[r] = c;
+  return o;
+}, p = {
+  setup() {
+    const e = s({
+      currentTheme: null
+    }), n = document.documentElement, o = (t) => {
+      e.currentTheme = t;
     }, r = () => {
-      const u = document.querySelector('meta[name="theme-color"]'), d = getComputedStyle(a).getPropertyValue(
+      const t = document.querySelector('meta[name="theme-color"]'), m = getComputedStyle(n).getPropertyValue(
         "--meta-theme-color"
       );
-      u.setAttribute("content", d);
-    }, l = () => {
-      n(), t.value = requestAnimationFrame(l);
+      t.setAttribute("content", m);
     }, c = () => {
-      t.value && cancelAnimationFrame(t.value), e.value = e.value === "dark" ? "light" : "dark", localStorage.setItem("theme", e.value), l();
-    }, s = i(() => ({
-      "theme-dark": e.value === "dark",
-      "theme-light": e.value === "light"
-    }));
-    return h(() => {
-      e.value = localStorage.getItem("theme") || o.defaultTheme, n(), l();
-    }), p(() => {
-      t.value && cancelAnimationFrame(t.value);
-    }), {
-      themeClasses: s,
-      pickTheme: c
+      const t = e.currentTheme === "dark" ? "light" : "dark";
+      e.currentTheme !== t && (localStorage.setItem("theme", t), o(t));
+    };
+    return a(() => {
+      const t = localStorage.getItem("theme");
+      o(t || "light");
+    }), l(
+      () => e.currentTheme,
+      () => {
+        document.documentElement.setAttribute("data-theme", e.currentTheme), r();
+      }
+    ), {
+      pickTheme: c,
+      state: e
     };
   }
 };
-function S(o, e, t, a, n, r) {
-  return f(), k("button", {
-    class: v(a.themeClasses),
-    onClick: e[0] || (e[0] = (...l) => a.pickTheme && a.pickTheme(...l))
+function g(e, n, o, r, c, t) {
+  return h(), u("button", {
+    onClick: n[0] || (n[0] = (...m) => r.pickTheme && r.pickTheme(...m)),
+    class: d(r.state.currentTheme === "dark" ? "theme-dark" : "theme-light")
   }, [
-    g(o.$slots, "default")
+    i(e.$slots, "default")
   ], 2);
 }
-const A = /* @__PURE__ */ T(_, [["render", S]]);
+const f = /* @__PURE__ */ T(p, [["render", g]]);
 export {
-  A as default
+  f as default
 };
