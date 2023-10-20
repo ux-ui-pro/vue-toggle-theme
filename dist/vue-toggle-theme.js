@@ -1,10 +1,10 @@
-import { ref as u, computed as d, onMounted as h, openBlock as i, createElementBlock as p, normalizeClass as f, renderSlot as k } from "vue";
-const g = (o, e) => {
-  const r = o.__vccOpts || o;
-  for (const [t, a] of e)
-    r[t] = a;
-  return r;
-}, T = {
+import { ref as m, computed as i, onMounted as h, onUnmounted as p, openBlock as f, createElementBlock as k, normalizeClass as v, renderSlot as g } from "vue";
+const T = (o, e) => {
+  const t = o.__vccOpts || o;
+  for (const [a, n] of e)
+    t[a] = n;
+  return t;
+}, _ = {
   name: "DarkMode",
   props: {
     defaultTheme: {
@@ -13,38 +13,40 @@ const g = (o, e) => {
     }
   },
   setup(o) {
-    const e = u(null), r = document.documentElement;
-    let t = !1;
-    const a = () => {
-      r.setAttribute("data-theme", e.value), s();
-    }, s = () => {
-      const c = document.querySelector('meta[name="theme-color"]'), m = getComputedStyle(r).getPropertyValue("--meta-theme-color");
-      c.setAttribute("content", m);
+    const e = m(null), t = m(null), a = document.documentElement, n = () => {
+      a.setAttribute("data-theme", e.value), r();
+    }, r = () => {
+      const u = document.querySelector('meta[name="theme-color"]'), d = getComputedStyle(a).getPropertyValue(
+        "--meta-theme-color"
+      );
+      u.setAttribute("content", d);
     }, l = () => {
-      t || (t = !0, e.value = e.value === "dark" ? "light" : "dark", localStorage.setItem("theme", e.value), a(), setTimeout(() => {
-        t = !1;
-      }, 300));
-    }, n = d(() => ({
+      n(), t.value = requestAnimationFrame(l);
+    }, c = () => {
+      t.value && cancelAnimationFrame(t.value), e.value = e.value === "dark" ? "light" : "dark", localStorage.setItem("theme", e.value), l();
+    }, s = i(() => ({
       "theme-dark": e.value === "dark",
       "theme-light": e.value === "light"
     }));
     return h(() => {
-      e.value = localStorage.getItem("theme") || o.defaultTheme, a();
+      e.value = localStorage.getItem("theme") || o.defaultTheme, n(), l();
+    }), p(() => {
+      t.value && cancelAnimationFrame(t.value);
     }), {
-      themeClasses: n,
-      pickTheme: l
+      themeClasses: s,
+      pickTheme: c
     };
   }
 };
-function v(o, e, r, t, a, s) {
-  return i(), p("button", {
-    class: f(t.themeClasses),
-    onClick: e[0] || (e[0] = (...l) => t.pickTheme && t.pickTheme(...l))
+function S(o, e, t, a, n, r) {
+  return f(), k("button", {
+    class: v(a.themeClasses),
+    onClick: e[0] || (e[0] = (...l) => a.pickTheme && a.pickTheme(...l))
   }, [
-    k(o.$slots, "default")
+    g(o.$slots, "default")
   ], 2);
 }
-const S = /* @__PURE__ */ g(T, [["render", v]]);
+const A = /* @__PURE__ */ T(_, [["render", S]]);
 export {
-  S as default
+  A as default
 };

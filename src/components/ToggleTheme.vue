@@ -1,68 +1,81 @@
 <script>
-import { ref, computed, onMounted } from 'vue'
+import {
+  ref, computed, onMounted, onUnmounted
+} from 'vue';
 
 export default {
   name: 'DarkMode',
   props: {
     defaultTheme: {
       type: String,
-      default: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-    }
+      default: window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light',
+    },
   },
   setup(props) {
-    const currentTheme = ref(null)
-    const docEl = document.documentElement
-
-    let isThrottled = false
+    const currentTheme = ref(null);
+    const animationFrameId = ref(null);
+    const docEl = document.documentElement;
 
     const setTheme = () => {
-      docEl.setAttribute('data-theme', currentTheme.value)
-      updateMetaTheme()
-    }
+      docEl.setAttribute('data-theme', currentTheme.value);
+
+      updateMetaTheme();
+    };
 
     const updateMetaTheme = () => {
-      const metaTheme = document.querySelector('meta[name="theme-color"]')
-      const cssVar = getComputedStyle(docEl).getPropertyValue('--meta-theme-color')
+      const metaTheme = document.querySelector('meta[name="theme-color"]');
+      const cssVar = getComputedStyle(docEl).getPropertyValue(
+        '--meta-theme-color'
+      );
 
-      metaTheme.setAttribute('content', cssVar)
-    }
+      metaTheme.setAttribute('content', cssVar);
+    };
+
+    const updateTheme = () => {
+      setTheme();
+      animationFrameId.value = requestAnimationFrame(updateTheme);
+    };
 
     const pickTheme = () => {
-      if (isThrottled) return
+      if (animationFrameId.value) {
+        cancelAnimationFrame(animationFrameId.value);
+      }
 
-      isThrottled = true
+      currentTheme.value = currentTheme.value === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('theme', currentTheme.value);
 
-      currentTheme.value = currentTheme.value === 'dark' ? 'light' : 'dark'
-      localStorage.setItem('theme', currentTheme.value)
-
-      setTheme()
-
-      setTimeout(() => { isThrottled = false }, 300)
-    }
+      updateTheme();
+    };
 
     const themeClasses = computed(() => ({
       'theme-dark': currentTheme.value === 'dark',
-      'theme-light': currentTheme.value === 'light'
-    }))
+      'theme-light': currentTheme.value === 'light',
+    }));
 
     onMounted(() => {
-      currentTheme.value = localStorage.getItem('theme') || props.defaultTheme
-      setTheme()
-    })
+      currentTheme.value = localStorage.getItem('theme') || props.defaultTheme;
+      setTheme();
+      updateTheme();
+    });
+
+    onUnmounted(() => {
+      if (animationFrameId.value) {
+        cancelAnimationFrame(animationFrameId.value);
+      }
+    });
 
     return {
       themeClasses,
-      pickTheme
-    }
-  }
-}
+      pickTheme,
+    };
+  },
+};
 </script>
 
 <template>
-  <button
-    :class="themeClasses"
-    @click="pickTheme"
-  >
+  <button :class="themeClasses" @click="pickTheme">
     <slot />
   </button>
 </template>
